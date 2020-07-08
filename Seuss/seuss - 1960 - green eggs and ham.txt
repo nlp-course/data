@@ -1,0 +1,169 @@
+# Green Eggs and Ham
+## (By Doctor Seuss) 
+
+SAM	I am Sam.
+SAM	I am Sam.
+SAM	Sam I am.
+
+GUY	That Sam-I-am! 
+GUY	That Sam-I-am! 
+GUY	I do not like that Sam-I-am!
+
+SAM	Do you like green eggs and ham?
+
+GUY	I do not like them, Sam-I-am.
+GUY	I do not like green eggs and ham.
+
+SAM	Would you like them here or there?
+
+GUY	I would not like them here or there.
+GUY	I would not like them anywhere.
+GUY	I do not like green eggs and ham.
+GUY	I do not like them, Sam-I-am.
+
+SAM	Would you like them in a house?
+SAM	Would you like them with a mouse?
+
+GUY	I do not like them in a house.
+GUY	I do not like them with a mouse.
+GUY	I do not like them here or there.
+GUY	I do not like them anywhere.
+GUY	I do not like green eggs and ham.
+GUY	I do not like them, Sam-I-am.
+
+SAM	Would you eat them in a box?
+SAM	Would you eat them with a fox?
+
+GUY	Not in a box. 
+GUY	Not with a fox.
+GUY	Not in a house. 
+GUY	Not with a mouse.
+GUY	I would not eat them here or there.
+GUY	I would not eat them anywhere.
+GUY	I would not eat green eggs and ham.
+GUY	I do not like them, Sam-I-am.
+
+SAM	Would you?
+SAM	Could you?
+SAM	In a car?
+SAM	Eat them!
+SAM	Eat them!
+SAM	Here they are.
+
+GUY	I would not, could not, in a car.
+
+SAM	You may like them.
+SAM	You will see.
+SAM	You may like them in a tree!
+
+GUY	I would not, could not in a tree.
+GUY	Not in a car!
+GUY	You let me be.
+GUY	I do not like them in a box.
+GUY	I do not like them with a fox.
+GUY	I do not like them in a house.
+GUY	I do not like them with a mouse.
+GUY	I do not like them here or there.
+GUY	I do not like them anywhere.
+GUY	I do not like green eggs and ham.
+GUY	I do not like them, Sam-I-am.
+
+SAM	A train!
+SAM	A train!
+SAM	A train!
+SAM	A train!
+SAM	Could you, would you, on a train?
+
+GUY	Not on a train!
+GUY	Not in a tree!
+GUY	Not in a car!
+GUY	Sam!
+GUY	Let me be!
+GUY	I would not, could not, in a box.
+GUY	I would not, could not, with a fox.
+GUY	I will not eat them with a mouse.
+GUY	I will not eat them in a house.
+GUY	I will not eat them here or there.
+GUY	I will not eat them anywhere.
+GUY	I do not eat greem eggs and ham.
+GUY	I do not like them, Sam-I-am.
+
+SAM	Say! 
+SAM	In the dark? 
+SAM	Here in the dark!
+SAM	Would you, could you, in the dark?
+
+GUY	I would not, could not, in the dark.
+
+SAM	Would you, could you, in the rain?
+
+GUY	I would not, could not in the rain.
+GUY	Not in the dark.
+GUY	Not on a train.
+GUY	Not in a car.
+GUY	Not in a tree.
+GUY	I do not like them, Sam, you see.
+GUY	Not in a house.
+GUY	Not in a box.
+GUY	Not with a mouse.
+GUY	Not with a fox.
+GUY	I will not eat them here or there.
+GUY	I do not like them anywhere!
+
+SAM	You do not like green eggs and ham?
+
+GUY	I do not like them, Sam-I-am.
+
+SAM	Could you, would you, with a goat?
+
+GUY	I would not, could not with a goat!
+
+SAM	Would you, could you, on a boat?
+
+GUY	I could not, would not, on a boat.
+GUY	I will not, will not, with a goat.
+GUY	I will not eat them in the rain.
+GUY	I will not eat them on a train.
+GUY	Not in the dark!
+GUY	Not in a tree!
+GUY	Not in a car!
+GUY	You let me be!
+GUY	I do not like them in a box.
+GUY	I do not like them with a fox.
+GUY	I will not eat them in a house.
+GUY	I do not like them with a mouse.
+GUY	I do not like them here or there.
+GUY	I do not like them ANYWHERE!
+GUY	I do not like green eggs and ham!
+GUY	I do not like them, Sam-I-am.
+
+SAM	You do not like them. 
+SAM	So you say.
+SAM	Try them!
+SAM	Try them! 
+SAM	And you may.
+SAM	Try them and you may, I say.
+
+GUY	Sam! 
+GUY	If you will let me be, I will try them. 
+GUY	You will see.
+GUY	Say! 
+GUY	I like green eggs and ham!
+GUY	I do!
+GUY	I like them, Sam-I-am!
+GUY	And I would eat them in a boat.
+GUY	And I would eat them with a goat...
+GUY	And I will eat them, in the rain.
+GUY	And in the dark. And on a train.
+GUY	And in a car. And in a tree.
+GUY	They are so good, so good, you see!
+GUY	So I will eat them in a box.
+GUY	And I will eat them with a fox.
+GUY	And I will eat them in a house.
+GUY	And I will eat them with a mouse.
+GUY	And I will eat them here and there.
+GUY	Say!
+GUY	I will eat them ANYWHERE!
+GUY	I do so like green eggs and ham!
+GUY	Thank you! 
+GUY	Thank you, Sam-I-am.
