@@ -1,2 +1,2 @@
-# data
-Public repository of data used in the NLP course
+# Data
+Public repository of data used in the Harvard NLP course CS187
