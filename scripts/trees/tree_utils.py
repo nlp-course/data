@@ -5,19 +5,22 @@ from nltk.tree import Tree
 from nltk import treetransforms
 
 
-# Convert a grammar to CNF form
-# To convert a grammar to CNF:
-# `cnf_grammar, cnf_grammar_wunaries = get_cnf_grammar(grammar)`
 def get_cnf_grammar(grammar):
+  """
+  Convert a grammar to CNF form
+  To convert a grammar to CNF:
+  `cnf_grammar, cnf_grammar_wunaries = get_cnf_grammar(grammar)
+  """`
   # First, binarize grammar by introducing new non-terminals
   # Second, remove mixed productions A -> b C or A -> B c
   # Finally, remove unary nonterminal productions A -> B
   return remove_unary_rules(remove_mixing(binarize(grammar)))
 
-# Convert back to the original grammar
-# To convert a tree output from CKY back to the original form of the grammar:
-# `un_cnf(tree, cnf_grammar_wunaries)`
 def un_cnf(tree, old_grammar):
+  """Convert back to the original grammar
+  To convert a tree output from CKY back to the original form of the grammar:
+  `un_cnf(tree, cnf_grammar_wunaries)`
+  """
   reinsert_unary_chains(tree, old_grammar)
   treetransforms.un_chomsky_normal_form(tree)
   nodeList = [(tree, [])]
@@ -32,8 +35,8 @@ def un_cnf(tree, old_grammar):
         for child in node:
           nodeList.append((child, node))
 
-# Binarize grammar by introducing new nonterminals
 def binarize(grammar):
+  """Binarize grammar by introducing new nonterminals"""
   result = []
 
   for rule in grammar.productions():
@@ -55,8 +58,8 @@ def binarize(grammar):
   n_grammar = CFG(grammar.start(), result)
   return n_grammar
 
-# Remove mixed productions A -> b C or A -> B c
 def remove_mixing(grammar):
+  """Remove mixed productions A -> b C or A -> B c"""
   result = []
   for rule in grammar.productions():
     if len(rule.rhs()) == 2 and (isinstance(rule.rhs()[0], str) or isinstance(rule.rhs()[1], str)):
@@ -77,8 +80,8 @@ def remove_mixing(grammar):
   n_grammar = CFG(grammar.start(), result)
   return n_grammar
 
-# Remove unary nonterminal productions A -> B
 def remove_unary_rules(grammar):
+  """Remove unary nonterminal productions A -> B"""
   result = []
   unary = []
   fake_rules = []
@@ -103,8 +106,8 @@ def remove_unary_rules(grammar):
   n_grammar = CFG(grammar.start(), result)
   return n_grammar, grammar
 
-# Add the previously removed unary productions A -> B back
 def reinsert_unary_chains(tree, old_grammar):
+  """Add the previously removed unary productions A -> B back"""
   old_unary_productions = [p for p in old_grammar.productions() if len(p) == 1 and p.is_nonlexical()]
 
   nodeList = [tree]
@@ -138,4 +141,3 @@ def reinsert_unary_chains(tree, old_grammar):
 
     for child in lastnode:
       nodeList.append(child)
-
