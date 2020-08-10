@@ -29,11 +29,12 @@ def timeout(func, args=(), kwargs={}, timeout_duration=1):
 def expect(func, args=(), kwargs={}, duration=5,
            expected_cb=lambda: "passed",
            failed_cb=lambda: "failed",
-           timeout_cb=lambda duration: f"timed out after {duration}",
-           exception_cb=lambda exc: f"failed with exception {exc}"):
-    '''Applies `func` to `args` and `kwargs`, calling an appropriate callback 
-       function depending on what occurs during the evaluation. The default 
-       callbacks return an appropriate message as follows:
+           exception_cb=lambda exc: f"failed with exception {exc}",
+           timeout_cb=lambda duration: f"timed out after {duration}"):
+    '''Applies the function `func` to arguments `args` and keyword arguments 
+       `kwargs`, calling an appropriate callback function depending on what
+       occurs during the evaluation. The default callbacks return an 
+       appropriate string as follows:
            result is True: "passed"
            result is False: "failed"
            exception raised: "failed with exception <exc>"
