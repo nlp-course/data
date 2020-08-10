@@ -9,8 +9,8 @@ def get_cnf_grammar(grammar):
   """
   Convert a grammar to CNF form
   To convert a grammar to CNF:
-  `cnf_grammar, cnf_grammar_wunaries = get_cnf_grammar(grammar)
-  """`
+  cnf_grammar, cnf_grammar_wunaries = get_cnf_grammar(grammar)
+  """
   # First, binarize grammar by introducing new non-terminals
   # Second, remove mixed productions A -> b C or A -> B c
   # Finally, remove unary nonterminal productions A -> B
