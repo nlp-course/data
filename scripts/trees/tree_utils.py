@@ -11,14 +11,14 @@ from nltk import treetransforms
 def get_cnf_grammar(grammar):
   # First, binarize grammar by introducing new non-terminals
   # Second, remove mixed productions A -> b C or A -> B c
-  # Finally, remove unit nonterminal productions A -> B
-  return remove_unit_rules(remove_mixing(binarize(grammar)))
+  # Finally, remove unary nonterminal productions A -> B
+  return remove_unary_rules(remove_mixing(binarize(grammar)))
 
 # Convert back to the original grammar
 # To convert a tree output from CKY back to the original form of the grammar:
 # `un_cnf(tree, cnf_grammar_wunaries)`
 def un_cnf(tree, old_grammar):
-  reinsert_unit_chains(tree, old_grammar)
+  reinsert_unary_chains(tree, old_grammar)
   treetransforms.un_chomsky_normal_form(tree)
   nodeList = [(tree, [])]
   while nodeList != []:
@@ -77,20 +77,20 @@ def remove_mixing(grammar):
   n_grammar = CFG(grammar.start(), result)
   return n_grammar
 
-# Remove unit nonterminal productions A -> B
-def remove_unit_rules(grammar):
+# Remove unary nonterminal productions A -> B
+def remove_unary_rules(grammar):
   result = []
-  unit = []
+  unary = []
   fake_rules = []
   removed_rules = []
   for rule in grammar.productions():
     if len(rule) == 1 and rule.is_nonlexical():
-      unit.append(rule)
+      unary.append(rule)
     else:
       result.append(rule)
 
-  while unit:
-    rule = unit.pop(0)
+  while unary:
+    rule = unary.pop(0)
     removed_rules.append(rule)
     for item in grammar.productions(lhs=rule.rhs()[0]):
       new_rule = Production(rule.lhs(), item.rhs())
@@ -98,14 +98,14 @@ def remove_unit_rules(grammar):
         result.append(new_rule)
         fake_rules.append(new_rule)
       else:
-        unit.append(new_rule)
+        unary.append(new_rule)
 
   n_grammar = CFG(grammar.start(), result)
   return n_grammar, grammar
 
-# Add the previously removed unit productions A -> B back
-def reinsert_unit_chains(tree, old_grammar):
-  old_unit_productions = [p for p in old_grammar.productions() if len(p) == 1 and p.is_nonlexical()]
+# Add the previously removed unary productions A -> B back
+def reinsert_unary_chains(tree, old_grammar):
+  old_unary_productions = [p for p in old_grammar.productions() if len(p) == 1 and p.is_nonlexical()]
 
   nodeList = [tree]
   while nodeList != []:
@@ -122,7 +122,7 @@ def reinsert_unit_chains(tree, old_grammar):
     possibility = [Nonterminal(node.label())]
     query = Production(possibility[-1], children_rhs)
     while query not in old_grammar.productions():
-      new_possibilities = [possibility + [p.rhs()[0]] for p in old_unit_productions if p.lhs() == possibility[-1]]
+      new_possibilities = [possibility + [p.rhs()[0]] for p in old_unary_productions if p.lhs() == possibility[-1]]
       possibilities.extend(new_possibilities)
       possibility = possibilities.pop(0)
       query = Production(possibility[-1], children_rhs)
