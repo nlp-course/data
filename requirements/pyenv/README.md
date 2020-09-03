@@ -13,13 +13,13 @@ Alternatively, you can also use [Google Colab](https://colab.research.google.com
 
 ## Prerequisites
 
-Throughout this course, we will use `Python 3.8.3`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `conda` for managing virtual environments, although `pyenv` and `virtualenv` can do the same thing.
+Throughout this course, we will use `Python 3.8.3`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `pyenv` and `virtualenv` for managing virtual environments, although `Anaconda` can do the same thing.
 
 ```
 make requisites
 ```
 
-After installing `conda` using the above command, we need to create a virtual environment named `otter-latest`:
+After installing `pyenv` and `virtualenv` using the above command, we need to create a virtual environment named `otter-latest`:
 
 ```
 make env
@@ -30,7 +30,7 @@ make env
 You will need to activate this virtual environment every time you launch a new terminal using
 
 ```
-conda activate otter-latest
+pyenv activate otter-latest
 ```
 
 Alternatively, you can add it to your `$HOME/.bashrc` file to automatically activate it.
