@@ -5,28 +5,26 @@ requisites: $(shell uname -s)
 
 
 Darwin:
-	brew update
-	brew install pyenv pyenv-virtualenv
+	(\
+	    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh; \
+	    bash ~/miniconda.sh -b -p $$HOME/miniconda; \
+	    $$HOME/miniconda/condabin/conda init; \
+	    exec "$$SHELL"; \
+    )
 
 
 Linux:
 	(\
-	    git clone https://github.com/pyenv/pyenv.git ~/.pyenv; \
-	    echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> ~/.bashrc; \
-	    echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> ~/.bashrc; \
-	    git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv; \
-	    echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$$(pyenv init -)"\n eval "$$(pyenv virtualenv-init -)"\nfi' >> ~/.bashrc; \
-	    . ~/.bashrc; \
+		wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh; \
+        bash ~/miniconda.sh -b -p $HOME/miniconda; \
+	    $$HOME/miniconda/condabin/conda init; \
 	    exec "$$SHELL"; \
     )
 
 env:
 	( \
-	   pyenv install -s 3.8.3; \
-	   pyenv virtualenv -f 3.8.3 otter-latest; \
-	   eval "$$(pyenv init -)"; \
-	   eval "$$(pyenv virtualenv-init -)"; \
-	   pyenv activate otter-latest; \
+       conda create -y -n otter-latest python=3.8.3;\
+	   conda activate otter-latest; \
 	   pip install otter-grader==1.0.0; \
 	   pip install jupyterlab; \
 	   pip install nbconvert; \
