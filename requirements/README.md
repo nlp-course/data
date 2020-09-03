@@ -13,7 +13,7 @@ Alternatively, you can also use [Google Colab](https://colab.research.google.com
 
 ## Prerequisites
 
-Throughout this course, we assume everyone is using `Python 3.8.3`. We will create a virtual environment for this course. In our provided Makefile we use `pyenv` and `virtualenv` for this purpose:
+Throughout this course, we will use `Python 3.8.3`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile we use `pyenv` and `virtualenv` for this purpose, although Anaconda can do the same thing:
 
 ```
 make requisites
