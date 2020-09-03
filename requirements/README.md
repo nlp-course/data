@@ -35,7 +35,7 @@ conda activate otter-latest
 
 Alternatively, you can add it to your `$HOME/.bashrc` file to automatically activate it.
 
-## Dependencies
+## Lab/PSet Python Dependencies
 
 ```
 pip install -r requirements.txt
