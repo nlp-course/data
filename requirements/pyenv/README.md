@@ -6,7 +6,7 @@ Throughout this readme file, we assume that the working directory is `requiremen
 
 ## Operating System
 
-If you want to work locally using your own computer, we recommend to use Linux-based operating systems, such as Ubuntu and MacOS. While on Windows you can still setup virtual environments, we highly recommend using a Linux subsystem or running a virtual machine with Ubuntu, such as by using [VirtualBox](https://www.virtualbox.org/). 
+If you want to work locally using your own computer, we recommend to use Linux-based operating systems, such as Ubuntu and MacOS. While on Windows you can still setup virtual environments, we highly recommend using [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) or running a virtual machine with Ubuntu, such as by using [VirtualBox](https://www.virtualbox.org/). 
 
 Alternatively, you can also use [Google Colab](https://colab.research.google.com/) which provides virtual machines on the cloud to run IPython notebooks. Just be aware that everything saved to disk will be lost unpon disconnection (which happens automatically if left idle for too long), unless you connect to your Google Drive and save files explicitly there.
 
@@ -14,6 +14,8 @@ Alternatively, you can also use [Google Colab](https://colab.research.google.com
 ## Prerequisites
 
 Throughout this course, we will use `Python 3.8.3`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `pyenv` and `virtualenv` for managing virtual environments, although `Anaconda` can do the same thing.
+
+Mac users: before running the following command, do a `brew install wget` if you don't have wget installed on your computer.
 
 ```
 make requisites
