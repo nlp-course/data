@@ -15,8 +15,6 @@ Alternatively, you can also use [Google Colab](https://colab.research.google.com
 
 Throughout this course, we will use `Python 3.8`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `conda` for managing virtual environments, although `pyenv` and `virtualenv` can do the same thing.
 
-Mac users: before running the following command, do a `brew install wget` if you don't have wget installed on your computer.
-
 ```
 make requisites
 ```
