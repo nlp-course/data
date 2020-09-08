@@ -27,7 +27,4 @@ env:
 	( \
        conda create -y -n otter-latest python=3.8.3;\
 	   conda activate otter-latest; \
-	   pip install otter-grader==1.0.0; \
-	   pip install jupyterlab; \
-	   pip install nbconvert; \
     )
