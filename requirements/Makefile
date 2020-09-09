@@ -25,6 +25,6 @@ Linux:
 
 env:
 	( \
-       conda create -y -n otter-latest python=3.8.3;\
-	   conda activate otter-latest; \
+       conda create -y -n cs187 python=3.8.3;\
+	   conda activate cs187; \
     )

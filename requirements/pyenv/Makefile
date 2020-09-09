@@ -24,10 +24,10 @@ Linux:
 env:
 	( \
 	   pyenv install -s 3.8.3; \
-	   pyenv virtualenv -f 3.8.3 otter-latest; \
+	   pyenv virtualenv -f 3.8.3 cs187; \
 	   eval "$$(pyenv init -)"; \
 	   eval "$$(pyenv virtualenv-init -)"; \
-	   pyenv activate otter-latest; \
+	   pyenv activate cs187; \
 	   pip install otter-grader==1.0.0; \
 	   pip install jupyterlab; \
 	   pip install nbconvert; \
