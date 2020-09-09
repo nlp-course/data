@@ -13,7 +13,7 @@ Alternatively, you can also use [Google Colab](https://colab.research.google.com
 
 ## Prerequisites
 
-If you have anaconda installed (type `which conda` in a terminal and see if you got any output), please skip this part. Throughout this course, we will use `Python 3.8`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `conda` for managing virtual environments. Alternatively, you can use `pyenv` and `virtualenv` instead by following instructions in `pyenv/`.
+If you have anaconda installed (type `which conda` in a terminal and see if you got any output), please skip this part. Throughout this course, we will use `Python 3.8`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `conda` for managing virtual environments. Alternatively, you can use `pyenv` and `virtualenv` instead by following instructions in [pyenv](pyenv/).
 
 ```
 make requisites
