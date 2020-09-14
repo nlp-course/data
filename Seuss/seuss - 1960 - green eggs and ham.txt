@@ -85,7 +85,7 @@ GUY	I will not eat them with a mouse.
 GUY	I will not eat them in a house.
 GUY	I will not eat them here or there.
 GUY	I will not eat them anywhere.
-GUY	I do not eat greem eggs and ham.
+GUY	I do not eat green eggs and ham.
 GUY	I do not like them, Sam-I-am.
 
 SAM	Say! 
