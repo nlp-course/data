@@ -1,0 +1,9 @@
+otter-grader == 1.0.0
+torch
+torchtext == 0.7
+nltk
+dateparser
+cryptography
+mysql-connector
+jupyterlab
+nbconvert
