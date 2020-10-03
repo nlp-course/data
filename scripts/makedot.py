@@ -54,6 +54,7 @@ def make_dot(var, params=None):
                 u = var.variable
                 name = param_map[id(u)] if params is not None else ''
                 node_name = '%s\n %s' % (name, size_to_str(u.size()))
+                node_name = '%s' % (name)
                 dot.node(str(id(var)), node_name, fillcolor='lightblue')
             elif var in output_nodes:
                 if id(var) in param_map:
