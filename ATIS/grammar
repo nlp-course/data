@@ -1,0 +1,656 @@
+S -> NPFLIGHT
+	| PREIGNORE NPFLIGHT
+	| NPFLIGHT POSTIGNORE
+	| PREIGNORE NPFLIGHT POSTIGNORE
+
+NPFLIGHT -> DET NOMFLIGHT
+        | NOMFLIGHT
+
+NOMFLIGHT -> NFLIGHT
+	| ADJ NOMFLIGHT
+
+NFLIGHT -> FLIGHT
+	| NFLIGHT PPFLIGHT
+
+PPFLIGHT -> PPAIRLINE
+	| PPDATE
+	| PPTIME
+	| PPPLACE 
+	| PPOTHER
+
+FLIGHT -> 'flights' | 'flight' | 'to' 'fly'
+
+ADJ -> AIRLINE 
+	| WEEKDAY 
+	| FLIGHTTYPE 
+	| ADJTIME
+	| PRICE
+        | CLASS
+	| PROPERTY
+
+DET -> 'all' 'the' 
+	| 'all' 
+	| 'a' 
+	| 'an' 
+	| 'the' 
+	| 'any' 
+	| 'all' 'of' 'the'
+	| 'this'
+	| 'this' 'coming'
+	| 'next'
+	| WEEKDAY POSS
+
+POSS -> "'s"
+
+CONJ -> 'and'
+     	| 'or'
+
+#### FLIGHT PROPERTIES ####
+
+PPAIRLINE -> PAIRLINE AIRLINE
+
+PAIRLINE -> 'on' 
+	| 'using' 
+	| 'of' 
+	| 'with'
+
+AIRLINE -> AIRBRAND
+	| AIRBRAND AIRBRANDTYPE
+
+AIRBRAND -> 'continental' 
+	| 'american' 
+	| 'united' 
+	| 'northwest' 
+	| 'us'
+	| 'delta' 
+	| 'twa' 
+	| 'air' 'canada' 
+	| 'midwest' 'express' 
+	| 'trans' 'world'
+
+AIRBRANDTYPE -> 'airline'
+	| 'airlines'
+	| 'air'
+
+FLIGHTTYPE -> FLIGHTTYPESIMPLE
+	| FLIGHTTYPESIMPLE CONJ FLIGHTTYPE
+
+FLIGHTTYPESIMPLE -> 'round' 'trip' 
+	| 'round-trip' 
+	| 'nonstop' 
+	| 'one' 'way' 
+	| 'return' 
+	| 'direct' 
+	| 'connecting'
+
+PPOTHER -> PRICE
+	| CLASS
+	| PPFOOD
+
+PRICE -> 'less' 'than' AMOUNT 'dollars' 
+	| 'cheapest'
+	| 'lowest' 'cost' 
+	| 'least' 'expensive' 
+	| 'with' 'the' 'lowest' 'fare' 
+	| 'the' 'cheapest' 'way' 'possible' 
+	| 'highest' 'cost' 
+	| 'most' 'expensive'
+	| 'with' 'the' 'highest' 'fare' 
+    | 'inexpensive'
+    | 'cheap'
+    | 'expensive'
+
+AMOUNT -> '1100' | '466'
+
+CLASS -> 'first' 'class' 
+	| 'economy' 
+	| 'thrift' 'economy' 
+	| 'transcontinental'
+	| 'available' 
+	| 'possible' 
+
+PPFOOD -> PFOOD FOOD
+
+FOOD -> 'dinner' 
+	| 'a' 'meal' 
+	| 'lunch' 
+	| 'breakfast'
+
+PFOOD -> 'serving'
+        | 'with'
+
+PROPERTY -> 'daily' 
+	| 'last' 
+	| 'first' 
+
+#### DATES ####
+
+PPDATE -> PDATEFROM NPDATE
+    | PDATETO NPDATE
+	| NPDATE
+
+PDATEFROM -> 'on' 
+	| 'returning' 'on' 
+	| 'of' 
+	| 'for' 
+	| 'next' 
+	| 'the' 'next' 
+	| 'in' 'the' 'next' 
+	| 'of' 'next' 
+	| 'leaving'
+    | 'departing'
+    | 'departing' 'on'
+	| 'which' 'leave' 
+	| 'leaving' 'on' 
+
+PDATETO -> 'arriving' 
+	| 'arriving' 'on' 
+	| 'that' 'arrive' 'on' 
+	| 'which' 'arrive' 'on' 
+	| 'a' 'week' 'from'
+
+DATE -> MONTH DAY YEAR 
+	| MONTH DAY 
+	| 'the' DAY 
+	| MONTH DAY 'or' DAY 
+	| 'the' DAY 'or' DAY 
+	| 'either' MONTH DAY 'or' DAY 
+	| 'either' 'the' DAY 'or' 'the' DAY 
+	| 'the' DAY 'of' MONTH 
+	| DAY 'of' MONTH 
+	| 'either' 'the' DAY 'or' 'the' DAY 'of' MONTH 
+	| 'the' DAY 'of' MONTH 'or' 'the' 'day' 'of' MONTH 
+	| 'either' 'the' DAY 'of' MONTH 'or' 'the' DAY 'of' MONTH
+	
+NPDATE -> WEEKDAY 
+	| 'a' WEEKDAY 
+	| 'this' WEEKDAY
+	| 'this' 'coming' WEEKDAY
+	| WEEKDAY ADJTIME
+	| DATE
+	| 'saturdays' 
+	| 'sundays' 
+	| 'mondays' 
+	| 'tuesdays' 
+	| 'wednesdays' 
+	| 'thursdays' 
+	| 'fridays'
+	| 'day' 
+	| 'week' 
+	| 'today' 
+	| 'tomorrow' 
+	| 'the' 'day' 'after' 'tomorrow'
+	| 'weekdays'
+
+ADJDATE -> WEEKDAY
+
+WEEKDAY -> 'saturday'
+	| 'sunday' 
+	| 'monday' 
+	| 'tuesday' 
+	| 'wednesday' 
+	| 'thursday' 
+	| 'friday'
+	| 'weekday'
+	
+MONTH -> 'january' 
+	| 'february' 
+	| 'march' 
+	| 'april' 
+	| 'may' 
+	| 'june' 
+	| 'july' 
+	| 'august' 
+	| 'september' 
+	| 'october' 
+	| 'november' 
+	| 'december'
+	
+DAY -> 'first' 
+	| 'second' 
+	| 'third' 
+	| 'fourth' 
+	| 'fifth' 
+	| 'sixth' 
+	| 'seventh' 
+	| 'eighth' 
+	| 'ninth' 
+	| 'tenth' 
+	| 'eleventh' 
+	| 'twelfth' 
+	| 'thirteenth' 
+	| 'fourteenth' 
+	| 'fifteenth' 
+	| 'sixteenth' 
+	| 'seventeenth' 
+	| 'eighteenth' 
+	| 'nineteenth' 
+	| 'twentieth' 
+	| 'twenty-first' 
+	| 'twenty' 'first' 
+	| 'twenty-second' 
+	| 'twenty' 'second' 
+	| 'twenty-third' 
+	| 'twenty' 'third' 
+	| 'twenty-fourth' 
+	| 'twenty' 'fourth' 
+	| 'twenty-fifth' 
+	| 'twenty' 'fifth' 
+	| 'twenty-sixth' 
+	| 'twenty' 'sixth' 
+	| 'twenty-seventh' 
+	| 'twenty' 'seventh' 
+	| 'twenty-eighth' 
+	| 'twenty' 'eighth' 
+	| 'twenty-ninth' 
+	| 'twenty' 'ninth' 
+	| 'thirtieth' 
+	| 'thirty-first' 
+	| 'thirty' 'first' 
+	| 'one' 
+	| 'two' 
+	| 'three' 
+	| 'four' 
+	| 'five' 
+	| 'six' 
+	| 'seven' 
+	| 'eight' 
+	| 'nine' 
+	| 'ten' 
+	| 'eleven' 
+	| 'twelve' 
+	| 'thirteen' 
+	| 'fourteen' 
+	| 'fifteen' 
+	| 'sixteen' 
+	| 'seventeen' 
+	| 'eighteen' 
+	| 'nineteen' 
+	| 'twenty' 
+	| 'twenty' 'one' 
+	| 'twenty' 'two' 
+	| 'twenty' 'three' 
+	| 'twenty' 'four' 
+	| 'twenty' 'five' 
+	| 'twenty' 'six' 
+	| 'twenty' 'seven' 
+	| 'twenty' 'eight' 
+	| 'twenty' 'nine' 
+	| 'thirty' 
+	| 'thirty' 'one'
+	
+YEAR -> '1991' 
+	| '1992'
+
+
+#### TIMES ####
+
+PPTIME -> PTIME NPTIME
+
+PTIME -> 'that' 'arrive' 'before' 
+	| 'that' 'arrives' 'before' 
+	| 'arriving' 'before' 
+	| 'arrival' 'by' 
+	| 'arrives' 
+	| 'before'
+	| 'departing' 'before' 
+	| 'that' 'leaves' 'before' 
+	| 'which' 'arrive' 'before' 
+	| 'by' 
+	| 'around' 
+	| 'that' 'return' 'around' 
+	| 'that' 'gets' 'in' 'around' 
+	| 'at' 
+	| 'arriving' 'around' 
+	| 'arriving' 'about' 
+	| 'that' 'arrive' 'soon' 'after' 
+	| 'leaving' 'at' 
+	| 'leaving' 
+	| 'which' 'leave' 'after' 
+	| 'leaving' 'after' 
+	| 'after' 
+	| 'departing' 'after' 
+	| 'that' 'depart' 'after' 
+	| 'departing' 'at' 
+	| 'arriving' 'after' 
+	| 'in' 
+	| 'departing' 'in' 
+	| 'on' 
+	| 'that' 'leaves' 'in'
+
+NPTIME -> SIMPLETIME 
+	| 'the' 'afternoon' 
+	| 'the' 'late' 'afternoon' 
+	| 'the' 'evening' 
+	| 'the' 'morning' 
+	| 'the' 'early' 'am' 
+	| 'the' 'day' 
+	| 'mornings' 
+	| 'afternoons' 
+	| 'evenings' 
+	| 'as' 'early' 'as' 'possible' 
+	| 'earliest' 'possible' 'time' 
+	| 'as' 'soon' 'thereafter' 'as' 'possible' 
+	| UNK
+
+
+ADJTIME -> 'lunch' 'time' 
+	| 'dinnertime' 
+	| 'evening' 
+	| 'night' 
+	| 'morning' 
+	| 'afternoon' 
+	| 'early' 
+	| 'late' 
+	| 'tonight' 
+	| 'earliest' 'possible' 
+	| 'earliest' 
+	| 'latest' 'possible' 
+	| 'latest'
+	| SIMPLETIME
+
+SIMPLETIME -> 'one' 
+	| 'two' 
+	| 'three' 
+	| 'four' 
+	| 'five' 
+	| 'six' 
+	| 'seven' 
+	| 'eight' 
+	| 'nine' 
+	| 'ten' 
+	| 'eleven' 
+	| 'twelve' 
+	| '1' 
+	| '2' 
+	| '3' 
+	| '4' 
+	| '5' 
+	| '6' 
+	| '7' 
+	| '8' 
+	| '9' 
+	| '10' 
+	| '11' 
+	| '12'
+	| SIMPLETIME TIMEMOD
+
+	| '230' 
+	| '1505' 
+	| '630am' 
+	| '720am' 
+	| '723pm' 
+	| '819' 
+	| '845' 
+	| '1026' 
+	| '1145am' 
+
+TIMEMOD -> 'am'
+	| 'pm'
+	| 'oclock'
+	| "o'clock"
+	| 'noon' 
+	| 'midnight' 
+
+#### PLACES ####
+
+PPPLACE -> PLACE 
+	| PPLACE PLACE 
+	| PPLACE PLACE 'or' PLACE 
+	| PPLACE 'either' PLACE 'or' PLACE 
+	| 'either' PLACE 'or' PLACE 
+	| PLACE 'or' PLACE 
+	| 'between' PLACE 'and' PLACE
+    
+PPLACE -> PPLACETO
+    | PPLACEFROM
+    | PPLACEVIA
+
+PPLACETO -> 'to' 
+	| 'that' 'arrive' 'at' 
+	| 'that' 'arrives' 'in' 
+	| 'coming' 'back' 'to' 
+	| 'that' 'go' 'to' 
+	| 'and' 'then' 'to' 
+	| 'arriving' 'in' 
+	| 'and' 'arriving' 'in' 
+	| 'and' 'arrive' 'in' 
+	| 'to' 'arrive' 'in' 
+	| 'arrive' 'in' 
+	| 'going' 'to' 
+	| 'into' 
+	| 'for' 
+	| 'with' 'the' 'destination' 'city' 'of' 
+	| 'arriving' 
+	| 'goes' 'to' 
+	| 'flying' 'into' 
+	| 'goes' 'on' 'to' 
+	| 'reaching' 
+	| 'in' 
+	| 'and' 'then' 
+	| 'arriving' 'to'
+
+PPLACEFROM -> 'from' 
+	| 'leaving' 
+	| 'return' 'from' 
+	| 'leaving' 'from' 
+	| 'departing' 'from' 
+	| 'departing' 
+	| 'go' 'from' 
+	| 'going' 'from' 
+	| 'back' 'from' 
+	| 'that' 'goes' 'from' 
+	| 'that' 'departs' 
+	| 'which' 'leaves' 'from' 
+	| 'which' 'leave' 
+	| 'that' 'leave' 
+	| 'originating' 'in' 
+	| 'leave' 
+	| 'out' 'of' 
+	| 'leaves' 'from' 
+	| 'to' 'get' 'from'
+
+PPLACEVIA -> 'via' 
+	| 'with' 'a' 'stopover' 'in' 
+	| 'with' 'a' 'layover' 'in' 
+	| 'with' 'a' 'stopover' 'at' 
+	| 'and' 'a' 'stopover' 'in' 
+	| 'stop' 'in' 
+	| 'stopping' 'in' 
+	| 'make' 'a' 'stop' 'in' 
+	| 'with' 'a' 'stop' 'in' 
+	| 'with' 'one' 'stop' 'in' 
+	| 'go' 'through' 
+	| 'which' 'go' 'through' 
+	| 'makes' 'a' 'stopover' 'in' 
+	| 'that' 'stops' 'in' 
+	| 'that' 'stops' 'over' 'in' 
+	| 'by' 'way' 'of' 
+	| 'connecting' 'through' 
+	| 'that' 'will' 'stop' 'in' 
+	| 'which' 'connects' 'in' 
+	| 'arriving' 'and' 'departing' 'at'
+
+PLACE -> 'anywhere' 
+	| 'atlanta' 
+	| 'austin' 
+	| 'baltimore' 
+	| 'boston' 
+	| 'boston' 'logan' 
+	| 'burbank' 
+	| 'bwi' 
+	| 'charlotte' 
+	| 'chicago' 
+	| 'cincinnati' 
+	| 'cleveland' 
+	| 'cleveland' 'ohio' 
+	| 'columbus' 
+	| 'dallas' 'fort' 'worth' 
+	| 'dallas' 
+	| 'denver' 
+	| 'denver' 'colorado' 
+	| 'detroit' 
+	| 'fort' 'worth' 
+	| 'general' 'mitchell' 'international' 
+	| 'general' 'mitchell' 
+	| 'houston' 
+	| 'indianapolis' 
+	| 'jfk' 
+	| 'kansas' 'city' 
+	| 'laguardia' 'airport' 
+	| 'las' 'vegas' 
+	| 'long' 'beach' 
+	| 'los' 'angeles' 
+	| 'love' 'field' 
+	| 'memphis' 
+	| 'miami' 
+	| 'milwaukee' 
+	| 'minneapolis' 
+	| 'montreal' 
+	| 'montreal' 'quebec' 
+	| 'montreal' 'canada' 
+	| 'nashville' 
+	| 'new' 'york' 'city' 
+	| 'new' 'york' 
+	| 'newark' 
+	| 'newark' 'new' 'jersey' 
+	| 'oakland' 
+	| 'oakland' 'california' 
+	| 'ontario' 
+	| 'orlando' 
+	| 'orlando' 'florida' 
+	| 'philadelphia' 
+	| 'philly' 
+	| 'phoenix' 
+	| 'pittsburgh' 
+	| 'salt' 'lake' 'city' 
+	| 'san' 'diego' 
+	| 'san' 'diego' 'california' 
+	| 'san' 'francisco' 
+	| 'san' 'jose' 
+	| 'seattle' 
+	| 'st.' 'louis' 
+	| 'st.' 'paul' 
+	| 'st.' 'petersburg' 
+	| 'tacoma' 
+	| 'tacoma' 'washington' 
+	| 'tampa' 
+	| 'toronto' 
+	| 'various' 'cities' 
+	| 'washington' 
+	| 'washington' 'dc' 
+	| 'dc' 
+	| 'westchester' 'county' 
+	| UNK
+
+#### IGNORABLE ####
+
+PREIGNORE -> PREIGNORESYMBOL
+    | PREIGNORESYMBOL PREIGNORE
+    
+PREIGNORESYMBOL -> 'me' 
+	| 'show' 
+	| 'now' 
+	| 'only' 
+	| 'can' 
+	| 'you' 
+	| 'the' 
+	| 'itinerary' 
+	| 'of' 
+	| 'also' 
+	| 'a' 
+	| 'list' 
+	| 'could' 
+	| 'give' 
+	| 'which' 
+	| 'what' 
+	| 'is' 
+	| "what's" 
+	| 'are' 
+	| 'my' 
+	| 'choices' 
+	| 'for' 
+	| 'i' 
+	| 'would' 
+	| 'like' 
+	| "i'd" 
+	| 'to' 
+	| 'see' 
+	| 'have' 
+	| 'make' 
+	| 'book' 
+	| 'find' 
+	| 'information' 
+	| 'on' 
+	| 'know' 
+	| 'some' 
+	| 'hello' 
+	| 'yes' 
+	| 'please' 
+	| 'repeat' 
+	| 'do' 
+	| 'have' 
+	| 'there' 
+	| 'need' 
+	| 'hi' 
+	| 'get' 
+	| 'may' 
+	| 'listing' 
+	| 'listings' 
+	| 'travel' 
+	| 'arrangements' 
+	| 'okay' 
+	| 'want' 
+	| 'tell' 
+	| 'about' 
+	| 'how' 
+	| 'would' 
+	| 'be' 
+	| 'able' 
+	| 'put' 
+	| 'requesting' 
+	| "i'm" 
+	| 'looking' 
+	| 'display' 
+	| UNK
+
+
+POSTIGNORE -> POSTIGNORESYMBOL
+        | POSTIGNORESYMBOL POSTIGNORE
+    
+POSTIGNORESYMBOL -> 'please' 
+	| 'there' 
+	| 'are' 
+	| 'currently' 
+	| 'do' 
+	| 'you' 
+	| 'have' 
+	| 'fares' 
+	| 'information' 
+	| 'i' 
+	| 'want' 
+	| 'would' 
+	| 'like' 
+	| 'the' 
+	| 'flight' 
+	| 'be' 
+	| 'go' 
+	| 'departures' 
+	| 'is' 
+	| 'such' 
+	| 'a' 
+	| 'that' 
+	| 'serves' 
+	| 'both' 
+	| 'and' 
+	| 'along' 
+	| 'with' 
+	| 'can' 
+	| 'get' 
+	| "i'd" 
+	| 'traveling' 
+	| 'for' 
+	| 'me' 
+	| UNK 
+	| '.' 
+	| '?'
