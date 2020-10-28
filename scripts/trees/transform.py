@@ -1,4 +1,4 @@
-### Gramamr and tree transformation functions for NLTK
+### Grammar and tree transformation functions for NLTK
 ###
 ### Prepared for CS187
 
@@ -25,7 +25,7 @@ from nltk.tree import Tree
 ###     * Blank lines and lines with leading whitespace and `#` are ignored.
 ###     * Unparsable lines are skipped with a warning.
 ###     * Semantic augmentations can be added at the end of the line after a colon.
-###       Augmentations are arbitrary Python objects.  If no augmentation is 
+###       Augmentations are arbitrary Python expressions.  If no augmentation is 
 ###       provided but a previous rule had an augmentation, it is used as the 
 ###       current rule's augmentation.
 
