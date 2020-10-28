@@ -1,7 +1,94 @@
+### Grammar and tree transformation functions for NLTK
+###
+### Prepared for CS187
+
+import collections
+import re
+
+import nltk
+
+from nltk import treetransforms
+from nltk.corpus import treebank
+from nltk.grammar import ProbabilisticProduction, CFG, PCFG, induce_pcfg, Nonterminal, Production
+from nltk.parse import pchart
+from nltk.tree import Tree
+
+###......................................................................
+### Augmented grammar specification format
+###
+### We provide a gramamr specification format that extends the NLTK string
+### specification format. Like NLTK, grammar rules are in the format
+### `LHS -> RHS`, where the `RHS` can have multiple alternations with `|`. 
+### However, the following extensions are allowed:
+###    
+###     * Alternatives can be on their own line.
+###     * Blank lines and lines with leading whitespace and `#` are ignored.
+###     * Unparsable lines are skipped with a warning.
+###     * Semantic augmentations can be added at the end of the line after a colon.
+###       Augmentations are arbitrary Python expressions.  If no augmentation is 
+###       provided but a previous rule had an augmentation, it is used as the 
+###       current rule's augmentation.
+
+def parse_augmented_grammar(spec, globals=globals()):
+  """Parses the `spec` as a grammar specification in an NLTK-extended format.
+
+  Returns an NLTK CFG grammar and a dictionary from productions to augmentations.
+  """
+  rules = []                      # accumulating rules
+  augments = []                   # ... and their augmentations
+  lhs = 'S'                       # current lhs, defaults to S
+  augment = (lambda *args : None) # default augmentation does nothing
+
+  # read in the grammar from the string
+  for line in spec.split('\n'):
+    # skip blank lines and comment lines
+    if re.match(r"\s*(\#.*)?$", line):
+      next
+    else: 
+      match = (re.match(r"\s*(?P<lhs>\w+)\s*->\s*(?P<rhsides>[^:]*)(\:(?P<augment>.*))?$", line)
+               or re.match(r"\s*(?P<lhs>)\|\s*(?P<rhsides>[^:]*)(\:(?P<augment>.*))?$", line))
+      # skip ill-formed lines with warning
+      if not match:
+        print(f"Warning - ill-formed: {line}")
+        next
+      else: 
+        rhsides = match.group('rhsides').strip()
+        lhs = match.group('lhs').strip() or lhs
+        if match.group('augment'):
+          augment = eval(match.group('augment').strip(), globals)
+        # add rules for each rhs
+        for rhs in rhsides.split('|'):
+          #print(f"found {lhs} -> {rhs}: {augment}")
+          rules.append(f"{lhs} -> {rhs}")
+          augments.append(augment)
+        
+  # build the grammar from the rules
+  grammar = nltk.CFG.fromstring(rules)
+  # build an augmentation dictionary
+  #   *** assumes that grammar.productions() doesn't reorder productions.
+  augmentations = collections.defaultdict(lambda x: None)
+  for rule, augment in zip(grammar.productions(), augments):
+    augmentations[rule] = augment
+  return grammar, augmentations
+
+def read_augmented_grammar(file, path='.', globals=globals()):
+  """Reads an augmented grammar spec from the file at the path, and 
+  returns an NLTK grammar and augmentation dictionary built from it.
+  """
+  with open(path + '/' + file,'r') as fh:
+     spec = fh.read()
+  gr, aug = parse_augmented_grammar(spec, globals)
+  return (gr, aug)
+
+###......................................................................
+### Conversion to and from Chomsky normal form (CNF)
+### 
+### Assumes that the input grammar has no epsilon productions.
+
 # Convert a grammar to CNF form
 def get_cnf_grammar(grammar):
   # First, binarize grammar by introducing new non-terminals
-  # Second, remove mixed productions A -> b C or A -> B c
+  # Second, remove mixed productions like A -> b C or A -> B c
   # Finally, remove unary nonterminal productions A -> B
   return remove_unary_rules(remove_mixing(binarize(grammar)))
 
