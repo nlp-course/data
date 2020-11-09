@@ -26,5 +26,4 @@ Linux:
 env:
 	( \
        conda create -y -n cs187 python=3.8.3;\
-	   conda activate cs187; \
     )
