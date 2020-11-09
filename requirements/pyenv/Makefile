@@ -7,11 +7,11 @@ requisites: $(shell uname -s)
 Darwin:
 	brew update
 	brew install pyenv pyenv-virtualenv
+	brew install wget
 
 
 Linux:
 	(\
-		brew install wget; \
 	    git clone https://github.com/pyenv/pyenv.git ~/.pyenv; \
 	    echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> ~/.bashrc; \
 	    echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> ~/.bashrc; \
