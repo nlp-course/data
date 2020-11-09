@@ -38,7 +38,7 @@ Alternatively, you can add it to your `$HOME/.bashrc` file to automatically acti
 ## Dependencies
 
 ```
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 ```
 
 ## IPython Notebook

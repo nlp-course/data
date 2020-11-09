@@ -28,7 +28,4 @@ env:
 	   eval "$$(pyenv init -)"; \
 	   eval "$$(pyenv virtualenv-init -)"; \
 	   pyenv activate cs187; \
-	   pip install otter-grader==1.0.0; \
-	   pip install jupyterlab; \
-	   pip install nbconvert; \
     )
