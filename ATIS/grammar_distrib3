@@ -41,6 +41,7 @@ ADJ -> ADJ_AIRLINE
         | ADJ_PRICE
         | ADJ_CLASS
         | ADJ_FOOD
+	| ADJ_PLACE
 
 ## Post-noun (prepositional phrase and relative clause) flight modifiers
 PP -> PP_AIRLINE
