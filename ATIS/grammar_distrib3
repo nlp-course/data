@@ -1,0 +1,676 @@
+### Sample grammar for ATIS queries
+### CS187
+
+## This grammar is intended to cover ATIS flight ID queries only. It
+## assumes that such queries are a single noun phrase, perhaps
+## preceded and followed by other text that can be ignored. (The
+## nonterminals PREIGNORE and POSTIGNORE capture this text.)
+##
+## Conventions used in this grammar:
+##
+## The start nonterminal is S. Other nonterminal names are typically
+## syntactic phrase types (e.g., NP, PP, Det, P) followed by a
+## semantic category (e.g., FLIGHT, AIRLINE), separated by an underscore.
+## The phrase type TERM is used for lexical lists for a particular semantic
+## category.
+##
+
+S -> NP_FLIGHT
+        | PREIGNORE NP_FLIGHT
+        | NP_FLIGHT POSTIGNORE
+        | PREIGNORE NP_FLIGHT POSTIGNORE
+
+NP_FLIGHT -> DET NOM_FLIGHT
+        | NOM_FLIGHT
+
+NOM_FLIGHT -> N_FLIGHT
+        | ADJ NOM_FLIGHT
+
+N_FLIGHT -> TERM_FLIGHT
+        | N_FLIGHT PP
+
+TERM_FLIGHT -> 'flights'
+        | 'flight'
+        | 'to' 'fly'
+
+## Pre-noun (primarily adjectival) flight modifiers
+ADJ -> ADJ_AIRLINE
+        | ADJ_DATE
+        | ADJ_FLIGHTTYPE
+        | ADJ_TIME
+        | ADJ_PRICE
+        | ADJ_CLASS
+        | ADJ_FOOD
+	| ADJ_PLACE
+
+## Post-noun (prepositional phrase and relative clause) flight modifiers
+PP -> PP_AIRLINE
+        | PP_DATE
+        | PP_TIME
+        | PP_PLACE
+        | PP_PRICE
+        | PP_CLASS
+        | PP_FOOD
+
+DET -> 'all' 'the'
+        | 'all'
+        | 'a'
+        | 'an'
+        | 'the'
+        | 'any'
+        | 'all' 'of' 'the'
+        | 'this'
+        | 'this' 'coming'
+        | 'next'
+        | TERM_WEEKDAY "'s"
+
+#### FLIGHT PROPERTIES ####
+
+## Airline information
+## **** TODO ****
+## Airline information includes phrases like "United" or "on United Airlines" 
+## as in the following queries:
+##    show me flights on united airlines
+##    show me united flights
+##    list all continental airlines flights on tuesdays
+## These phrases are incorporated into the grammar above via the nonterminals
+## PP_AIRLINE and ADJ_AIRLINE. You should provide definitions for these 
+## nonterminals here. We've provided some useful definitions for some lexical 
+## lists.
+
+PP_AIRLINE -> "...your grammar here..."
+
+ADJ_AIRLINE -> "...your grammar here..."
+
+TERM_AIRBRAND -> 'continental'
+        | 'american'
+        | 'united'
+        | 'northwest'
+        | 'us'
+        | 'delta'
+        | 'twa'
+        | 'air' 'canada'
+        | 'midwest' 'express'
+        | 'trans' 'world'
+
+TERM_AIRBRANDTYPE -> 'airline'
+        | 'airlines'
+        | 'air'
+
+## Flight type information
+
+ADJ_FLIGHTTYPE -> ADJ_FLIGHTTYPESIMPLE
+        | ADJ_FLIGHTTYPESIMPLE 'and' ADJ_FLIGHTTYPE
+        | ADJ_FLIGHTTYPESIMPLE 'or' ADJ_FLIGHTTYPE
+
+ADJ_FLIGHTTYPESIMPLE -> 'round' 'trip'
+        | 'round-trip'
+        | 'return'
+        | 'one' 'way'
+        | 'nonstop'
+        | 'direct'
+        | 'connecting'
+
+## Other properties (cost, class, food)
+
+ADJ_PRICE -> 'cheapest'
+        | 'lowest' 'cost'
+        | 'least' 'expensive'
+        | 'inexpensive'
+        | 'cheap'
+
+        | 'expensive'
+        | 'highest' 'cost'
+        | 'most' 'expensive'
+
+PP_PRICE -> 'less' 'than' AMOUNT 'dollars'
+
+        | 'with' 'the' 'lowest' 'fare'
+        | 'the' 'cheapest' 'way' 'possible'
+
+        | 'with' 'the' 'highest' 'fare'
+
+ADJ_CLASS -> 'economy'
+        | 'thrift' 'economy'
+        | 'first' 'class'
+        | 'transcontinental'
+        | 'available'
+        | 'possible'
+
+PP_CLASS -> ADJ_CLASS
+
+ADJ_FOOD -> NP_FOOD
+
+PP_FOOD -> P_FOOD NP_FOOD
+
+NP_FOOD -> 'dinner'
+        | 'lunch'
+        | 'breakfast'
+        | 'a' 'meal'
+
+P_FOOD -> 'serving'
+        | 'with'
+
+#### DATES ####
+
+ADJ_DATE -> TERM_WEEKDAY
+
+PP_DATE -> P_DATE NP_DATE
+        | NP_DATE
+
+P_DATE -> 'on'
+        | 'returning' 'on'
+        | 'of'
+        | 'for'
+        | 'next'
+        | 'the' 'next'
+        | 'in' 'the' 'next'
+        | 'of' 'next'
+        | 'leaving'
+        | 'departing'
+        | 'departing' 'on'
+        | 'which' 'leave'
+        | 'leaving' 'on'
+
+        | 'arriving'
+        | 'arriving' 'on'
+        | 'that' 'arrive' 'on'
+        | 'which' 'arrive' 'on'
+        | 'a' 'week' 'from'
+
+NP_DATE -> TERM_WEEKDAY
+        | 'a' TERM_WEEKDAY
+        | 'this' TERM_WEEKDAY
+        | 'this' 'coming'
+        | TERM_WEEKDAY ADJTIME
+        | NP_MDYDATE
+        | 'saturdays'
+        | 'sundays'
+        | 'mondays'
+        | 'tuesdays'
+        | 'wednesdays'
+        | 'thursdays'
+        | 'fridays'
+        | 'day'
+        | 'week'
+        | 'today'
+        | 'tomorrow'
+        | 'the' 'day' 'after' 'tomorrow'
+        | 'weekdays'
+
+NP_MDYDATE -> TERM_MONTH TERM_DAY YEAR
+        | TERM_MONTH TERM_DAY
+        | 'the' TERM_DAY
+        | TERM_MONTH TERM_DAY 'or' TERM_DAY
+        | 'the' TERM_DAY 'or' TERM_DAY
+        | 'either' TERM_MONTH TERM_DAY 'or' TERM_DAY
+        | 'either' 'the' TERM_DAY 'or' 'the' TERM_DAY
+        | 'the' TERM_DAY 'of' TERM_MONTH
+        | TERM_DAY 'of' TERM_MONTH
+        | 'either' 'the' TERM_DAY 'or' 'the' TERM_DAY 'of' TERM_MONTH
+        | 'the' TERM_DAY 'of' TERM_MONTH 'or' 'the' 'day' 'of' TERM_MONTH
+        | 'either' 'the' TERM_DAY 'of' TERM_MONTH 'or' 'the' TERM_DAY 'of' TERM_MONTH
+        
+TERM_WEEKDAY -> 'saturday'
+        | 'sunday'
+        | 'monday'
+        | 'tuesday'
+        | 'wednesday'
+        | 'thursday'
+        | 'friday'
+        | 'weekday'
+        
+TERM_MONTH -> 'january'
+        | 'february'
+        | 'march'
+        | 'april'
+        | 'may'
+        | 'june'
+        | 'july'
+        | 'august'
+        | 'september'
+        | 'october'
+        | 'november'
+        | 'december'
+        
+TERM_DAY -> 'first'
+        | 'second'
+        | 'third'
+        | 'fourth'
+        | 'fifth'
+        | 'sixth'
+        | 'seventh'
+        | 'eighth'
+        | 'ninth'
+        | 'tenth'
+        | 'eleventh'
+        | 'twelfth'
+        | 'thirteenth'
+        | 'fourteenth'
+        | 'fifteenth'
+        | 'sixteenth'
+        | 'seventeenth'
+        | 'eighteenth'
+        | 'nineteenth'
+        | 'twentieth'
+        | 'twenty-first'
+        | 'twenty' 'first'
+        | 'twenty-second'
+        | 'twenty' 'second'
+        | 'twenty-third'
+        | 'twenty' 'third'
+        | 'twenty-fourth'
+        | 'twenty' 'fourth'
+        | 'twenty-fifth'
+        | 'twenty' 'fifth'
+        | 'twenty-sixth'
+        | 'twenty' 'sixth'
+        | 'twenty-seventh'
+        | 'twenty' 'seventh'
+        | 'twenty-eighth'
+        | 'twenty' 'eighth'
+        | 'twenty-ninth'
+        | 'twenty' 'ninth'
+        | 'thirtieth'
+        | 'thirty-first'
+        | 'thirty' 'first'
+        | 'one'
+        | 'two'
+        | 'three'
+        | 'four'
+        | 'five'
+        | 'six'
+        | 'seven'
+        | 'eight'
+        | 'nine'
+        | 'ten'
+        | 'eleven'
+        | 'twelve'
+        | 'thirteen'
+        | 'fourteen'
+        | 'fifteen'
+        | 'sixteen'
+        | 'seventeen'
+        | 'eighteen'
+        | 'nineteen'
+        | 'twenty'
+        | 'twenty' 'one'
+        | 'twenty' 'two'
+        | 'twenty' 'three'
+        | 'twenty' 'four'
+        | 'twenty' 'five'
+        | 'twenty' 'six'
+        | 'twenty' 'seven'
+        | 'twenty' 'eight'
+        | 'twenty' 'nine'
+        | 'thirty'
+        | 'thirty' 'one'
+
+TERM_YEAR -> '1991'
+        | '1992'
+
+#### TIMES ####
+
+PP_TIME -> P_TIME NP_TIME
+
+P_TIME -> 'that' 'arrive' 'before'
+        | 'that' 'arrives' 'before'
+        | 'arriving' 'before'
+        | 'arrival' 'by'
+        | 'which' 'arrive' 'before'
+
+        | 'departing' 'before'
+        | 'before'
+        | 'that' 'leaves' 'before'
+        | 'by'
+    
+        | 'that' 'return' 'around'
+        | 'that' 'gets' 'in' 'around'
+        | 'arriving' 'around'
+        | 'arriving' 'about'
+        | 'that' 'arrive' 'soon' 'after'
+
+        | 'around'
+        
+        | 'arrives'
+        | 'arriving' 'at'
+        | 'arriving'
+
+        | 'leaving' 'at'
+        | 'at'
+        | 'leaving'
+        | 'in'
+        | 'departing' 'at'
+        | 'on'
+        | 'that' 'leaves' 'at'
+        
+        | 'arriving' 'after'
+        | 'which' 'arrives' 'after'
+        | 'that' 'arrives' 'after'
+
+        | 'which' 'leave' 'after'
+        | 'leaving' 'after'
+        | 'after'
+        | 'departing' 'after'
+        | 'departing' 'in'
+        | 'that' 'depart' 'after'
+        | 'that' 'leaves' 'in'
+
+NP_TIME -> TERM_TIME
+        | 'afternoons'
+        | 'the' 'afternoon'
+        | 'the' 'late' 'afternoon'
+        | 'evenings'
+        | 'the' 'evening'
+        | 'mornings'
+        | 'the' 'morning'
+        | 'the' 'early' 'am'
+        | 'as' 'early' 'as' 'possible'
+        | 'earliest' 'possible' 'time'
+        | 'the' 'day'
+        | 'as' 'soon' 'thereafter' 'as' 'possible'
+        | UNK
+
+
+ADJ_TIME -> 'lunch' 'time'
+        | 'evening'
+        | 'dinnertime'
+        | 'late'
+        | 'night'
+        | 'latest' 'possible'
+        | 'latest'
+        | 'tonight'
+        | 'morning'
+        | 'early'
+        | 'earliest' 'possible'
+        | 'earliest'
+        | 'afternoon'
+        | SIMPLETIME
+
+TERM_TIME -> 'one' | '1'
+        | 'two' | '2'
+        | 'three' | '3'
+        | 'four' | '4'
+        | 'five' | '5'
+        | 'six' | '6'
+        | 'seven' | '7'
+        | 'eight' | '8'
+        | 'nine' | '9'
+        | 'ten' | '10'
+        | 'eleven' | '11'
+        | 'twelve' | '12' | 'noon'
+        | 'midnight'
+        | TERM_TIME TERM_TIMEMOD
+
+TERM_TIMEMOD -> 'am'
+        | 'oclock'
+        | "o'clock"
+        | 'noon'
+        | 'pm'
+        | 'midnight'
+
+#### PLACES ####
+
+## **** TODO ****
+## Place information includes phrases like "boston" or "from logan airport"
+## or "between milwaukee and jfk" as in the following queries:
+##    show me boston flights
+##    are there any flights from logan airport tomorrow
+##    list all continental airlines flights between milwaukee and jfk
+## These phrases are incorporated into the grammar above via the nonterminals
+## ADJ_PLACE and PP_PLACE. You should provide definitions for these 
+## nonterminals here. We've provided some useful definitions for some lexical 
+## lists.
+
+ADJ_PLACE -> "...your grammar here..."
+
+PP_PLACE -> "...your grammar here..."
+
+P_PLACE -> 'to'
+        | 'that' 'arrive' 'at'
+        | 'that' 'arrives' 'in'
+        | 'coming' 'back' 'to'
+        | 'that' 'go' 'to'
+        | 'and' 'then' 'to'
+        | 'arriving' 'in'
+        | 'and' 'arriving' 'in'
+        | 'and' 'arrive' 'in'
+        | 'to' 'arrive' 'in'
+        | 'arrive' 'in'
+        | 'going' 'to'
+        | 'into'
+        | 'for'
+        | 'with' 'the' 'destination' 'city' 'of'
+        | 'arriving'
+        | 'goes' 'to'
+        | 'flying' 'into'
+        | 'goes' 'on' 'to'
+        | 'reaching'
+        | 'in'
+        | 'and' 'then'
+        | 'arriving' 'to'
+
+        | 'from'
+        | 'leaving'
+        | 'return' 'from'
+        | 'leaving' 'from'
+        | 'departing' 'from'
+        | 'departing'
+        | 'go' 'from'
+        | 'going' 'from'
+        | 'back' 'from'
+        | 'that' 'goes' 'from'
+        | 'that' 'departs'
+        | 'which' 'leaves' 'from'
+        | 'which' 'leave'
+        | 'that' 'leave'
+        | 'originating' 'in'
+        | 'leave'
+        | 'out' 'of'
+        | 'leaves' 'from'
+        | 'to' 'get' 'from'
+
+        | 'via'
+        | 'with' 'a' 'stopover' 'in'
+        | 'with' 'a' 'layover' 'in'
+        | 'with' 'a' 'stopover' 'at'
+        | 'and' 'a' 'stopover' 'in'
+        | 'stop' 'in'
+        | 'stopping' 'in'
+        | 'make' 'a' 'stop' 'in'
+        | 'with' 'a' 'stop' 'in'
+        | 'with' 'one' 'stop' 'in'
+        | 'go' 'through'
+        | 'which' 'go' 'through'
+        | 'makes' 'a' 'stopover' 'in'
+        | 'that' 'stops' 'in'
+        | 'that' 'stops' 'over' 'in'
+        | 'by' 'way' 'of'
+        | 'connecting' 'through'
+        | 'that' 'will' 'stop' 'in'
+        | 'which' 'connects' 'in'
+        | 'arriving' 'and' 'departing' 'at'
+
+TERM_AIRPORT -> 'boston' 'logan'
+	| 'logan'
+        | 'bwi'
+        | 'general' 'mitchell' 'international'
+        | 'general' 'mitchell'
+        | 'jfk'
+	| 'kennedy' 'airport'
+        | 'laguardia' 'airport'
+        | 'love' 'field'
+
+TERM_PLACE -> 'anywhere'
+        | 'atlanta'
+        | 'austin'
+        | 'baltimore'
+        | 'boston'
+        | 'burbank'
+        | 'charlotte'
+        | 'chicago'
+        | 'cincinnati'
+        | 'cleveland'
+        | 'cleveland' 'ohio'
+        | 'columbus'
+        | 'dallas' 'fort' 'worth'
+        | 'dallas'
+        | 'denver'
+        | 'denver' 'colorado'
+        | 'detroit'
+        | 'fort' 'worth'
+        | 'houston'
+        | 'indianapolis'
+        | 'kansas' 'city'
+        | 'las' 'vegas'
+        | 'long' 'beach'
+        | 'los' 'angeles'
+        | 'memphis'
+        | 'miami'
+        | 'milwaukee'
+        | 'minneapolis'
+        | 'montreal'
+        | 'montreal' 'quebec'
+        | 'montreal' 'canada'
+        | 'nashville'
+        | 'new' 'york' 'city'
+        | 'new' 'york'
+        | 'newark'
+        | 'newark' 'new' 'jersey'
+        | 'oakland'
+        | 'oakland' 'california'
+        | 'ontario'
+        | 'orlando'
+        | 'orlando' 'florida'
+        | 'philadelphia'
+        | 'philly'
+        | 'phoenix'
+        | 'pittsburgh'
+        | 'salt' 'lake' 'city'
+        | 'san' 'diego'
+        | 'san' 'diego' 'california'
+        | 'san' 'francisco'
+        | 'san' 'jose'
+        | 'seattle'
+        | 'st.' 'louis'
+        | 'st.' 'paul'
+        | 'st.' 'petersburg'
+        | 'tacoma'
+        | 'tacoma' 'washington'
+        | 'tampa'
+        | 'toronto'
+        | 'washington'
+        | 'washington' 'dc'
+        | 'dc'
+        | 'westchester' 'county'
+        | 'various' 'cities'
+
+#### IGNORABLE ####
+
+PREIGNORE -> PREIGNORESYMBOL
+    | PREIGNORESYMBOL PREIGNORE
+    
+PREIGNORESYMBOL -> 'me'
+        | 'show'
+        | 'now'
+        | 'only'
+        | 'can'
+        | 'you'
+        | 'the'
+        | 'itinerary'
+        | 'of'
+        | 'also'
+        | 'a'
+        | 'list'
+        | 'could'
+        | 'give'
+        | 'which'
+        | 'what'
+        | 'is'
+        | "what's"
+        | 'are'
+        | 'my'
+        | 'choices'
+        | 'for'
+        | 'i'
+        | 'would'
+        | 'like'
+        | "i'd"
+        | 'to'
+        | 'see'
+        | 'have'
+        | 'make'
+        | 'book'
+        | 'find'
+        | 'information'
+        | 'on'
+        | 'know'
+        | 'some'
+        | 'hello'
+        | 'yes'
+        | 'please'
+        | 'repeat'
+        | 'do'
+        | 'have'
+        | 'there'
+        | 'need'
+        | 'hi'
+        | 'get'
+        | 'may'
+        | 'listing'
+        | 'listings'
+        | 'travel'
+        | 'arrangements'
+        | 'okay'
+        | 'want'
+        | 'tell'
+        | 'about'
+        | 'how'
+        | 'would'
+        | 'be'
+        | 'able'
+        | 'put'
+        | 'requesting'
+        | "i'm"
+        | 'looking'
+        | 'display'
+
+POSTIGNORE -> POSTIGNORESYMBOL
+        | POSTIGNORESYMBOL POSTIGNORE
+    
+POSTIGNORESYMBOL -> 'please'
+        | 'there'
+        | 'are'
+        | 'currently'
+        | 'do'
+        | 'you'
+        | 'have'
+        | 'fares'
+        | 'information'
+        | 'i'
+        | 'want'
+        | 'would'
+        | 'like'
+        | 'the'
+        | 'flight'
+        | 'be'
+        | 'go'
+        | 'departures'
+        | 'is'
+        | 'such'
+        | 'a'
+        | 'that'
+        | 'serves'
+        | 'both'
+        | 'and'
+        | 'along'
+        | 'with'
+        | 'can'
+        | 'get'
+        | "i'd"
+        | 'traveling'
+        | 'for'
+        | 'me'
+        | UNK
+        | '.'
+        | '?'
