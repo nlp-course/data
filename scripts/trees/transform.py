@@ -60,13 +60,14 @@ def parse_augmented_grammar(spec, globals=globals()):
           augment_str = match.group('augment').strip()
         # add rules for each rhs
         for rhs in rhsides.split('|'):
-          if (augment_str is not None) and('_RHS' in augment_str):
-            #print (augment_str)
-            augment_str_new = augment_str.replace('_RHS', '[' + ','.join(rhs.strip().split()) +']')
-            #print (augment_str_new)
-            augment = eval(augment_str_new, globals)
-          else:
-            augment = eval(augment_str, globals)
+          if augment_str is not None:
+            if '_RHS' in augment_str:
+              #print (augment_str)
+              augment_str_new = augment_str.replace('_RHS', '[' + ','.join(rhs.strip().split()) +']')
+              #print (augment_str_new)
+              augment = eval(augment_str_new, globals)
+            else:
+              augment = eval(augment_str, globals)
           #print(f"found {lhs} -> {rhs}: {augment}")
           rules.append(f"{lhs} -> {rhs}")
           augments.append(augment)
