@@ -39,6 +39,8 @@ def parse_augmented_grammar(spec, globals=globals()):
   lhs = 'S'                       # current lhs, defaults to S
   augment = (lambda *args : None) # default augmentation does nothing
 
+  augment_str = None
+
   # read in the grammar from the string
   for line in spec.split('\n'):
     # skip blank lines and comment lines
@@ -58,7 +60,7 @@ def parse_augmented_grammar(spec, globals=globals()):
           augment_str = match.group('augment').strip()
         # add rules for each rhs
         for rhs in rhsides.split('|'):
-          if '_RHS' in augment_str:
+          if (augment_str is not None) and('_RHS' in augment_str):
             #print (augment_str)
             augment_str_new = augment_str.replace('_RHS', '[' + ','.join(rhs.strip().split()) +']')
             #print (augment_str_new)
