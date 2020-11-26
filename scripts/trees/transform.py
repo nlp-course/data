@@ -40,6 +40,7 @@ def parse_augmented_grammar(spec, globals=globals()):
   augment = (lambda *args : None) # default augmentation does nothing
 
   augment_str = None
+  prev_lhs = ''
 
   # read in the grammar from the string
   for line in spec.split('\n'):
@@ -56,6 +57,9 @@ def parse_augmented_grammar(spec, globals=globals()):
       else: 
         rhsides = match.group('rhsides').strip()
         lhs = match.group('lhs').strip() or lhs
+        if lhs != prev_lhs:
+            augment_str = None
+            prev_lhs = lhs
         if match.group('augment'):
           augment_str = match.group('augment').strip()
         # add rules for each rhs
@@ -63,7 +67,9 @@ def parse_augmented_grammar(spec, globals=globals()):
           if augment_str is not None:
             if '_RHS' in augment_str:
               #print (augment_str)
-              augment_str_new = augment_str.replace('_RHS', '[' + ','.join(rhs.strip().split()) +']')
+              rhs_items = rhs.strip().split()
+              rhs_items = [item if (item[0]=='"' or item[0]=="'") else f'"{item}"' for item in rhs_items]
+              augment_str_new = augment_str.replace('_RHS', '[' + ','.join(rhs_items) +']')
               #print (augment_str_new)
               augment = eval(augment_str_new, globals)
             else:
