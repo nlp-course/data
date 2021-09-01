@@ -1,6 +1,6 @@
 # Machine Setup
 
-This class is focused on in-class collaborative labs and a sequence of problem sets, so it is important that you setup environments properly before lab classes start (Sep 10). 
+This class is focused on in-class collaborative labs and a sequence of problem sets, so it is important that you setup environments properly.
 
 Throughout this readme file, we assume that the working directory is `pyenv`.
 
