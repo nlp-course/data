@@ -15,6 +15,8 @@ Alternatively, you can also use [Google Colab](https://colab.research.google.com
 
 Throughout this course, we will use `Python 3.8.3`. To not mess up with your other Python environments, we will create a virtual environment for this course. In our provided Makefile, we use `pyenv` and `virtualenv` for managing virtual environments, although `Anaconda` can do the same thing.
 
+If you are using a Mac and have not installed `brew` before, you need to install it first using `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`.
+
 ```
 make requisites
 ```
