@@ -1,5 +1,6 @@
 ### Sample grammar for ATIS queries
 ### CS187
+### (Project segment 3 distribution version)
 
 ## This grammar is intended to cover ATIS flight ID queries only. It
 ## assumes that such queries are a single noun phrase, perhaps
@@ -13,7 +14,6 @@
 ## semantic category (e.g., FLIGHT, AIRLINE), separated by an underscore.
 ## The phrase type TERM is used for lexical lists for a particular semantic
 ## category.
-##
 
 S -> NP_FLIGHT
         | PREIGNORE NP_FLIGHT
@@ -38,10 +38,10 @@ ADJ -> ADJ_AIRLINE
         | ADJ_DATE
         | ADJ_FLIGHTTYPE
         | ADJ_TIME
+        | ADJ_PLACE
         | ADJ_PRICE
         | ADJ_CLASS
         | ADJ_FOOD
-	| ADJ_PLACE
 
 ## Post-noun (prepositional phrase and relative clause) flight modifiers
 PP -> PP_AIRLINE
@@ -78,9 +78,9 @@ DET -> 'all' 'the'
 ## nonterminals here. We've provided some useful definitions for some lexical 
 ## lists.
 
-PP_AIRLINE -> "...your grammar here..."
-
 ADJ_AIRLINE -> "...your grammar here..."
+
+PP_AIRLINE -> "...your grammar here..."
 
 TERM_AIRBRAND -> 'continental'
         | 'american'
@@ -88,10 +88,9 @@ TERM_AIRBRAND -> 'continental'
         | 'northwest'
         | 'us'
         | 'delta'
-        | 'twa'
         | 'air' 'canada'
         | 'midwest' 'express'
-        | 'trans' 'world'
+        | 'twa' | 'trans' 'world'
 
 TERM_AIRBRANDTYPE -> 'airline'
         | 'airlines'
@@ -182,7 +181,7 @@ NP_DATE -> TERM_WEEKDAY
         | 'a' TERM_WEEKDAY
         | 'this' TERM_WEEKDAY
         | 'this' 'coming'
-        | TERM_WEEKDAY ADJTIME
+        | TERM_WEEKDAY ADJ_TIME
         | NP_MDYDATE
         | 'saturdays'
         | 'sundays'
@@ -200,15 +199,15 @@ NP_DATE -> TERM_WEEKDAY
 
 NP_MDYDATE -> TERM_MONTH TERM_DAY YEAR
         | TERM_MONTH TERM_DAY
-        | 'the' TERM_DAY
-        | TERM_MONTH TERM_DAY 'or' TERM_DAY
-        | 'the' TERM_DAY 'or' TERM_DAY
-        | 'either' TERM_MONTH TERM_DAY 'or' TERM_DAY
-        | 'either' 'the' TERM_DAY 'or' 'the' TERM_DAY
         | 'the' TERM_DAY 'of' TERM_MONTH
         | TERM_DAY 'of' TERM_MONTH
+        | 'the' TERM_DAY
+        | TERM_MONTH TERM_DAY 'or' TERM_DAY
+        | 'either' TERM_MONTH TERM_DAY 'or' TERM_DAY
         | 'either' 'the' TERM_DAY 'or' 'the' TERM_DAY 'of' TERM_MONTH
-        | 'the' TERM_DAY 'of' TERM_MONTH 'or' 'the' 'day' 'of' TERM_MONTH
+        | 'the' TERM_DAY 'or' TERM_DAY
+        | 'either' 'the' TERM_DAY 'or' 'the' TERM_DAY
+        | 'the' TERM_DAY 'of' TERM_MONTH 'or' 'the' TERM_DAY 'of' TERM_MONTH
         | 'either' 'the' TERM_DAY 'of' TERM_MONTH 'or' 'the' TERM_DAY 'of' TERM_MONTH
         
 TERM_WEEKDAY -> 'saturday'
@@ -404,7 +403,8 @@ TERM_TIME -> 'one' | '1'
 
 TERM_TIMEMOD -> 'am'
         | 'oclock'
-        | "o'clock"
+        | 'o' "'clock"
+        | 'o' 'clock'
         | 'noon'
         | 'pm'
         | 'midnight'
@@ -491,18 +491,82 @@ P_PLACE -> 'to'
         | 'which' 'connects' 'in'
         | 'arriving' 'and' 'departing' 'at'
 
-TERM_AIRPORT -> 'boston' 'logan'
-	| 'logan'
-        | 'bwi'
-        | 'general' 'mitchell' 'international'
-        | 'general' 'mitchell'
-        | 'jfk'
-	| 'kennedy' 'airport'
-        | 'laguardia' 'airport'
-        | 'love' 'field'
+TERM_AIRPORT -> TERM_AIRPORT 'airport'
+     | TERM_AIRPORT 'airports'
 
-TERM_PLACE -> 'anywhere'
-        | 'atlanta'
+     | 'baltimore/washington' 'international'
+     | 'burbank'
+     | 'buttonville'
+     | 'charlotte/douglas' 'international'
+     | 'cincinnati/northern' 'kentucky' 'intl.'
+     | 'dallas/fort' 'worth' 'international'
+     | 'detroit' 'city'
+     | 'dorval' 'international'
+     | 'dulles' 'international'
+     | 'general' 'mitchell' 'international'
+     | 'greater' 'pittsburgh' 'international'
+     | 'hobby'
+     | 'hopkins' 'international'
+     | 'houston' 'intercontinental'
+     | 'indianapolis' 'international'
+     | 'john' 'f.' 'kennedy' 'international'
+     | 'kansas' 'city' 'international'
+     | 'la' 'guardia'
+     | 'lambert' 'st.' 'louis' 'international'
+     | 'lester' 'b.' 'pearson' 'international'
+     | 'lindbergh' 'field/san' 'diego' 'international'
+     | 'logan' 'international'
+     | 'long' 'beach' 'municipal'
+     | 'los' 'angeles' 'international'
+     | 'love' 'field'
+     | 'mccarran' 'international'
+     | 'memphis' 'international'
+     | 'metropolitan' 'oakland' 'international'
+     | 'metropolitan' 'wayne' 'county'
+     | 'miami' 'international'
+     | 'midway'
+     | 'minneapolis/st.' 'paul' 'international'
+     | 'mirabel'
+     | 'nashville' 'international'
+     | 'newark' 'international'
+     | "o'hare" 'international'
+     | 'ontario' 'international'
+     | 'orlando' 'international'
+     | 'philadelphia' 'international'
+     | 'port' 'columbus' 'international'
+     | 'salt' 'lake' 'city' 'international'
+     | 'san' 'francisco' 'international'
+     | 'san' 'jose' 'international'
+     | 'seattle/tacoma' 'international'
+     | 'sky' 'harbor' 'international'
+     | 'st.' 'petersburg/clearwater' 'international'
+     | 'stapleton' 'international'
+     | 'tampa' 'international'
+     | 'toronto' 'island'
+     | 'washington' 'national'
+     | 'westchester' 'county'
+     | 'william' 'b.' 'hartsfield' 'atlanta' 'intl.'
+
+     ## airport name synonyms
+     | 'bwi'
+     | 'douglas'
+     | 'dfw'
+     | 'dorval'
+     | 'dulles'
+     | 'general mitchell'
+     | 'hopkins'
+     | 'jfk'
+         | 'john' 'f.' 'kennedy'
+         | 'kennedy'
+     | 'laguardia'
+     | 'lambert'
+     | 'pearson'
+     | 'lindbergh'
+     | 'logan'
+     | 'mccarran'
+
+
+TERM_PLACE -> 'atlanta'
         | 'austin'
         | 'baltimore'
         | 'boston'
@@ -511,14 +575,10 @@ TERM_PLACE -> 'anywhere'
         | 'chicago'
         | 'cincinnati'
         | 'cleveland'
-        | 'cleveland' 'ohio'
         | 'columbus'
-        | 'dallas' 'fort' 'worth'
         | 'dallas'
         | 'denver'
-        | 'denver' 'colorado'
         | 'detroit'
-        | 'fort' 'worth'
         | 'houston'
         | 'indianapolis'
         | 'kansas' 'city'
@@ -530,25 +590,17 @@ TERM_PLACE -> 'anywhere'
         | 'milwaukee'
         | 'minneapolis'
         | 'montreal'
-        | 'montreal' 'quebec'
-        | 'montreal' 'canada'
         | 'nashville'
-        | 'new' 'york' 'city'
         | 'new' 'york'
         | 'newark'
-        | 'newark' 'new' 'jersey'
         | 'oakland'
-        | 'oakland' 'california'
         | 'ontario'
         | 'orlando'
-        | 'orlando' 'florida'
         | 'philadelphia'
-        | 'philly'
         | 'phoenix'
         | 'pittsburgh'
         | 'salt' 'lake' 'city'
         | 'san' 'diego'
-        | 'san' 'diego' 'california'
         | 'san' 'francisco'
         | 'san' 'jose'
         | 'seattle'
@@ -556,14 +608,28 @@ TERM_PLACE -> 'anywhere'
         | 'st.' 'paul'
         | 'st.' 'petersburg'
         | 'tacoma'
-        | 'tacoma' 'washington'
         | 'tampa'
         | 'toronto'
         | 'washington'
-        | 'washington' 'dc'
         | 'dc'
         | 'westchester' 'county'
-        | 'various' 'cities'
+
+        ## city name synonyms
+        | 'cleveland' 'ohio'
+        | 'dallas' 'fort' 'worth'
+        | 'fort' 'worth'
+        | 'denver' 'colorado'
+        | 'montreal' 'quebec'
+        | 'montreal' 'canada'
+        | 'new' 'york' 'city'
+        | 'newark' 'new' 'jersey'
+        | 'oakland' 'california'
+        | 'orlando' 'florida'
+        | 'philly'
+        | 'san' 'diego' 'california'
+        | 'tacoma' 'washington'
+        | 'washington' 'dc'
+        | 'westchester'
 
 #### IGNORABLE ####
 
