@@ -36,11 +36,10 @@ from tokenizers.normalizers import Lowercase
 
 # Configuration
 SEED = 1234
-MIN_FREQ = 3
+MIN_FREQ = 1
 TRAIN_RATIO = 0.9
 
-# Keywords for count analysis (used in lab 1-2)
-KEYWORDS = ['on', 'upon', 'there', 'whilst']
+
 
 # Directory structure (when run from Federalist directory)
 FEDERALIST_DIR = "."  # Current directory (Federalist/)
@@ -50,7 +49,6 @@ MODELS_SUBDIR = "Models"
 
 # Output files
 PROCESSED_DATA_JSON = "federalist_data_processed.json"
-PROCESSED_DATA_FOUR_COUNTS_JSON = "federalist_data_four_counts.json"
 TOKENIZER_FILE = "tokenizer.pt"
 
 # Authoritative author and title data extracted from Library of Congress web page
@@ -292,29 +290,7 @@ def load_raw_data():
 
 
 
-def calculate_keyword_counts(text):
-    """Calculate counts for the four keywords using torchtext method to match original data."""
-    try:
-        import torchtext
-        # Use the same tokenizer as the original script
-        tokenizer = torchtext.data.get_tokenizer("basic_english")
-        tokens = tokenizer(text)
-        
-        # Count each keyword
-        counts = []
-        for keyword in KEYWORDS:
-            count = tokens.count(keyword)
-            counts.append(count)
-        
-        return counts
-    except ImportError:
-        # Fallback to regex method if torchtext not available
-        tokens = re.findall(r'\b\w+\b|[^\w\s]', text.lower())
-        counts = []
-        for keyword in KEYWORDS:
-            count = tokens.count(keyword)
-            counts.append(count)
-        return counts
+
 
 def split_data(papers):
     """Split papers into train/validation/test sets."""
@@ -383,7 +359,7 @@ def build_tokenizer(train_data):
     
     # Train the tokenizer on the training data with more inclusive settings
     word_tokenizer.train_from_iterator(all_text, trainer=WordLevelTrainer(
-        min_frequency=1,  # Include all words, even if they appear only once
+        min_frequency=MIN_FREQ,  # Use the defined constant
         special_tokens=["[UNK]", "[PAD]"]
     ))
     
@@ -418,16 +394,12 @@ def tokenize_data(splits, tokenizer):
             # Use the trained tokenizer to get consistent tokenization
             tokens = tokenizer.tokenize(doc['text'])
             
-            # Calculate keyword counts for lab 1-2 using torchtext method
-            counts = calculate_keyword_counts(doc['text'])
-            
             tokenized_doc = {
                 'number': doc['number'],
                 'title': doc['title'],
                 'authors': doc['authors'],
                 'tokens': tokens,  # Keep as tokens for lab compatibility
                 'text': doc['text'],  # Keep original text too
-                'counts': counts  # Add counts for lab 1-2
             }
             tokenized_docs.append(tokenized_doc)
         
@@ -435,6 +407,7 @@ def tokenize_data(splits, tokenizer):
         print(f"{split_name}: {len(tokenized_docs)} documents")
     
     return tokenized_splits
+
 
 def save_data(tokenized_splits, tokenizer):
     """Save processed data and tokenizer."""
@@ -450,27 +423,6 @@ def save_data(tokenized_splits, tokenizer):
     with open(processed_data_path, 'w') as f:
         json.dump(tokenized_splits, f, indent=2)
     print(f"Saved processed data to: {processed_data_path}")
-    
-    # Save lab 1-2 compatible data (flat structure, no text/tokens, no splits)
-    lab1_2_data = []
-    for split_name, documents in tokenized_splits.items():
-        for doc in documents:
-            # Authors are already in correct format from FEDERALIST_DATA
-            lab1_2_doc = {
-                'number': doc['number'],
-                'title': doc['title'],
-                'authors': doc['authors'],
-                'counts': doc['counts']
-            }
-            lab1_2_data.append(lab1_2_doc)
-    
-    # Sort by paper number for consistency
-    lab1_2_data.sort(key=lambda x: x['number'])
-    
-    lab1_2_path = os.path.join(text_dir, PROCESSED_DATA_FOUR_COUNTS_JSON)
-    with open(lab1_2_path, 'w') as f:
-        json.dump(lab1_2_data, f, indent=2)
-    print(f"Saved lab 1-2 compatible data to: {lab1_2_path}")
     
     # Save tokenizer
     tokenizer_path = os.path.join(text_dir, TOKENIZER_FILE)
